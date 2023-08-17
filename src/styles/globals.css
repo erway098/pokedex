@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+body {
+ font-family: var(--font-roboto);
+}
+
+.bug {
+ background-color: #bef264;
+}
+.bug-detail {
+ @apply bg-gradient-to-b from-[#bef264] to-gray-900 to-60%
+}
+.dark {
+ background-color: #5B5466;
+}
+.dark-detail {
+ @apply bg-gradient-to-b from-[#5B5466] to-gray-900 to-60%
+}
+.dragon {
+ background-color: #7dd3fc;
+}
+.dragon-detail {
+ @apply bg-gradient-to-b from-[#7dd3fc] to-gray-900 to-60%
+}
+.electric {
+ background-color: #FBD100;
+}
+.electric-detail {
+ @apply bg-gradient-to-b from-[#FBD100] to-gray-900 to-60%
+}
+.fairy {
+ background-color: #FB89EB;
+}
+.fairy-detail {
+ @apply bg-gradient-to-b from-[#FB89EB] to-gray-900 to-60%
+}
+.fighting {
+ background-color: #E0306A;
+}
+.fighting-detail {
+ @apply bg-gradient-to-b from-[#E0306A] to-gray-900 to-60%
+}
+.fire {
+ background-color: #fdba74;
+}
+.fire-detail {
+ @apply bg-gradient-to-b from-[#fdba74] to-gray-900 to-60%
+}
+.flying {
+ background-color: #a5b4fc;
+}
+.flying-detail {
+ @apply bg-gradient-to-b from-[#a5b4fc] to-gray-900 to-60%
+}
+.ghost {
+ background-color: #818cf8;
+}
+.ghost-detail {
+ @apply bg-gradient-to-b from-[#818cf8] to-gray-900 to-60%
+}
+.grass {
+ background-color: #86efac;
+}
+.grass-detail {
+ @apply bg-gradient-to-b from-[#86efac] to-gray-900 to-60%
+}
+.ground {
+ background-color: #E87236;
+}
+.ground-detail {
+ @apply bg-gradient-to-b from-[#E87236] to-gray-900 to-60%
+}
+.ice {
+ background-color: #4CD1C0;
+}
+.ice-detail {
+ @apply bg-gradient-to-b from-[#4CD1C0] to-gray-900 to-60%
+}
+.normal {
+ background-color: #919AA2;
+}
+.normal-detail {
+ @apply bg-gradient-to-b from-[#919AA2] to-gray-900 to-60%
+}
+.poison {
+ background-color: #B567CE;
+}
+.poison-detail {
+ @apply bg-gradient-to-b from-[#B567CE] to-gray-900 to-60%
+}
+.psychic {
+ background-color: #FF6675;
+}
+.psychic-detail {
+ @apply bg-gradient-to-b from-[#FF6675] to-gray-900 to-60%
+}
+.rock {
+ background-color: #C8B686;
+}
+.rock-detail {
+ @apply bg-gradient-to-b from-[#C8B686] to-gray-900 to-60%
+}
+.steel {
+ background-color: #5A8EA2;
+}
+.steel-detail {
+ @apply bg-gradient-to-b from-[#5A8EA2] to-gray-900 to-60%
+}
+.water {
+ background-color: #3692DC;
+}
+.water-detail {
+ @apply bg-gradient-to-b from-[#3692DC] to-gray-900 to-60%
+}
+
+@layer components {
+ .active-bottom-link {
+  @apply bg-pink-500 ring-2 ring-white -translate-y-5
+ }
+}
