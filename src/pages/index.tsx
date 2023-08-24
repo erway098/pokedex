@@ -5,38 +5,65 @@ import { useAppContext } from "@/contexts/store";
 import { IconContext } from "react-icons";
 import { BsSearch, BsFilter } from "react-icons/bs";
 
-import { getPokemon } from "@/utils/getPokemon";
+import {
+ useFetcher
+} from '@/hooks/useFetch'
+
+import {
+ IPokemon
+} from '@/interfaces/pokemon'
 
 import Head from "next/head";
 import Link from "next/link";
 
 import PokemonCard from "@/components/card/pokemonCard";
 import CardSceleton from "@/components/loading/cardSceleton";
-import BottomNav from "@/components/navigation/bottomNav";
+import Modal from '@/components/modal'
 
 const HomePage = () => {
   const { state, dispatch } = useAppContext();
   const [loading, setLoading] = useState(false);
-
+ 
+  const getPokemon = async (url: string) => {
+   const response = await useFetcher(url)
+   
+   const pokeData: IPokemon[] = []
+   
+   for (let data of response.results) {
+    const res = await useFetcher(data.url)
+    pokeData.push({
+     id: res.id,
+     name: res.name,
+     image: res.sprites.other.home.front_default,
+     cardColor: res.types[0].type.name,
+     types: res.types
+    })
+   }
+      
+   const pokemon: {
+    next: string,
+    data: IPokemon[]
+   } = {
+    next: response.next,
+    data: pokeData
+   }
+   
+   return pokemon
+  }
+ 
   useEffect(() => {
-    const getPokemonData = async () => {
-      const pokemon = await getPokemon('https://pokeapi.co/api/v2/pokemon')
-
-      dispatch({
-        type: 'GET_POKEMON',
-        payload: pokemon
-      })
-      dispatch({
-        type: 'IS_LOADING',
-        payload: false
-      })
-    }
-    getPokemonData()
+   (async () => {
+    const pokemon = await getPokemon('https://pokeapi.co/api/v2/pokemon') 
+    dispatch({
+     type: 'GET_POKEMON',
+     payload: pokemon
+    })
+    dispatch({
+     type: 'IS_LOADING',
+     payload: false
+    })
+   })()
   },[]);
-
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
-  };
 
   const handleLoadMore = async (url: string) => {
     setLoading(true);
@@ -55,18 +82,15 @@ const HomePage = () => {
         <title>pokedex | home</title>
       </Head>
       <main>
-        <div className="px-4 pb-14">
+        <div className="px-2 pb-5">
           <Header />
-          <div className="mt-4 flex justify-between items-center">
-            <InputSearch
-              onchange={(evt: ChangeEvent<HTMLInputElement>) =>
-                handleSearch(evt)
-              }
-            />
+          <div className="mt-4">
             <button
               type="button"
-              onClick={() => alert("filter")}
-              className="btn rounded-lg bg-gray-500"
+              onClick={
+               ()=>window.my_modal_3.showModal()
+              }
+              className="btn btn-block rounded-lg bg-gray-500"
             >
               <IconContext.Provider
                 value={{
@@ -101,7 +125,7 @@ const HomePage = () => {
                       </div>
                     );
                   })}
-              <div className="col-span-12 my-6">
+              <div className={`col-span-12 my-6`}>
                 <center>
                   <button
                     onClick={() => handleLoadMore(state.pokemon.next)}
@@ -125,7 +149,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <BottomNav />
+        <Modal />
       </main>
     </>
   );
@@ -144,34 +168,12 @@ const Header = () => {
         </Link>
       </center>
       <p className="text-gray-500 text-center text-lg font-normal">
-        Use the advanced search to find pokemon by type, weakness, ability, and
-        more!.
+        filter pokemonon by generation pokemon!.
       </p>
     </div>
   );
 };
 
-const InputSearch: FC<{
-  onchange: (evt: ChangeEvent<HTMLInputElement>) => void;
-}> = ({ onchange }) => {
-  return (
-    <div className="relative">
-      <input
-        onChange={onchange}
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered w-full max-w-xs pl-9 bg-transparent transition duration-500 ease-in focus:text-gray-300 focus:input-info"
-      />
-      <IconContext.Provider
-        value={{
-          className: "text-gray-500 absolute top-1/2 -translate-y-1/2 left-2",
-          size: "24px",
-        }}
-      >
-        <BsSearch />
-      </IconContext.Provider>
-    </div>
-  );
-};
+
 
 export default HomePage;

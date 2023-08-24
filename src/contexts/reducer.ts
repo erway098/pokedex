@@ -38,7 +38,7 @@ export type Action =
   | {
       type: "POKEMON_DETAIL";
       payload: any;
-    };
+    }
 
 export const createReducer = (state: State, action: Action) => {
   switch (action.type) {

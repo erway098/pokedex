@@ -6,9 +6,9 @@ const PokemonCard = ({ ...props }: IPokemon) => {
   return (
     <Link href={`/pokemon/${props.id}`}>
       <div
-        className={`h-36 w-full rounded-lg p-1 ${props.cardColor} shadow-lg`}
+        className={`h-36 w-full rounded-lg p-2 ${props.cardColor} shadow-lg`}
       >
-        <div className="bg-[url('/pokeball.svg')] bg-no-repeat bg-contain bg-center w-full h-full gray">
+        <div className="bg-[url('/pokeball.svg')] bg-no-repeat bg-contain bg-center w-full h-full">
           <div className="flex justify-between items-center text-base text-white font-medium">
             <h3>{props.name}</h3>
             <h5>#{props.id}</h5>

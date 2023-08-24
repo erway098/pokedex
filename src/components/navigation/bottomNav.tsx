@@ -1,6 +1,6 @@
 import {
- useState
-} from 'react'
+ useAppContext
+} from '@/contexts/store'
 
 import {
  IconContext
@@ -8,17 +8,20 @@ import {
 
 import {
  BottomNavigation
-} from '@/utils/bottomNavigation'
+} from '@/interfaces/navigation/bottomNav'
 
 import Link from 'next/link'
 
 const BottomNav =  () => {
- const [
-  active, setActive
-  ] = useState(1)
+ const {
+  state, dispatch
+ } = useAppContext()
   
  const handleActive = (index: number) => {
-  setActive(index)
+  dispatch({
+   type: 'BOTTOM_LINK',
+   payload: index
+  })
  }
  
  return (
@@ -31,7 +34,7 @@ const BottomNav =  () => {
         onClick={() => handleActive(value.id)}
         href={value.to}
         className="flex flex-col items-center">
-        <span className={`p-3 rounded-full ${active === value.id ? 'active-bottom-link' : 'translate-y-2'} transition duration-500 ease-in`}>
+        <span className={`p-3 rounded-full ${state.bottomLink === value.id ? 'active-bottom-link' : 'translate-y-2'} transition duration-500 ease-in`}>
          <IconContext.Provider value={{
           size: 24,
           className: 'text-white'
@@ -39,7 +42,7 @@ const BottomNav =  () => {
           <value.icon />
          </IconContext.Provider>
         </span>
-        <span className={`text-white text-sm font-normal ${active === value.id ? 'opacity-1 -translate-y-2' : 'opacity-0 translate-y-4'} transition duration-500 ease-in`}>
+        <span className={`text-white text-sm font-normal ${state.bottomLink === value.id ? 'opacity-1 -translate-y-2' : 'opacity-0 translate-y-4'} transition duration-500 ease-in`}>
          {value.name}
         </span>
        </Link>

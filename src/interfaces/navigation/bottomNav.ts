@@ -1,6 +1,6 @@
 import {
  MdCatchingPokemon,
- MdCompareArrows
+ MdLocationOn
 } from 'react-icons/md'
 import {
  BiSolidMoviePlay
@@ -25,9 +25,9 @@ export const BottomNavigation: IBottomNav[] = [
  },
   {
   id: 2,
-  name: 'Compare',
-  icon: MdCompareArrows,
-  to: '/compare'
+  name: 'Location',
+  icon: MdLocationOn,
+  to: '/location'
  },
   {
   id: 3,
